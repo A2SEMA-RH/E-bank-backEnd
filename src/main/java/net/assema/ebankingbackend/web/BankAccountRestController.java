@@ -1,5 +1,7 @@
 package net.assema.ebankingbackend.web;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 import net.assema.ebankingbackend.dtos.AccountHistoryDTO;
 import net.assema.ebankingbackend.dtos.AccountOperationDTO;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+
 
 public class BankAccountRestController {
     private BankAccountService bankAccountService;

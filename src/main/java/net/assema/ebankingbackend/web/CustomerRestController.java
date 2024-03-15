@@ -1,5 +1,6 @@
 package net.assema.ebankingbackend.web;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.assema.ebankingbackend.dtos.CustomerDTO;

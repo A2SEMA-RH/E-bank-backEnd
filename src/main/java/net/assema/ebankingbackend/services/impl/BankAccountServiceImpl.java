@@ -209,7 +209,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     public AccountHistoryDTO getAccountHistory(String accountId, int page, int size) throws BankAccountNotFoundException {
         BankAccount bankAccount = bankAccountRepository.findById(accountId).orElse(null);
         if (bankAccount==null) throw new BankAccountNotFoundException("Account not Found");
-        Page<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountId(accountId, PageRequest.of(page, size));
+        Page<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountIdOrderByOperationDateDesc(accountId, PageRequest.of(page, size));
         AccountHistoryDTO accountHistoryDTO = new AccountHistoryDTO();
         List<AccountOperationDTO> accountOperationDTOS= accountOperations.getContent().stream().map(op->dtoMapper.fromAccountOperation(op)).collect(Collectors.toList());
         accountHistoryDTO.setAccountOperationDTOS(accountOperationDTOS);
@@ -221,6 +221,24 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 
         return accountHistoryDTO;
+    }
+
+    @Override
+    public List<CustomerDTO> searchCustomers(String keyword){
+        List<Customer> customers = customerRepository.findByNameContains(keyword);
+        List<CustomerDTO> customerDTOS = customers.stream().map(customer ->dtoMapper.fromCustomer(customer)).collect(Collectors.toList());
+        return  customerDTOS ;
+
+
+    }
+
+//    c'est meme mothode que la precedante c'est juste que celle-ci est une requete personnaliseé
+//    it's the same method as the previous one, it's just that this one is a personalized request
+    @Override
+    public List<CustomerDTO>rechercheCustomer(String keyword){
+        List<Customer> customers = customerRepository.searchCustomerByName(keyword);
+        List<CustomerDTO>customerDTOS =customers.stream().map(customer -> dtoMapper.fromCustomer(customer)).collect(Collectors.toList());
+        return customerDTOS ;
     }
 
 }

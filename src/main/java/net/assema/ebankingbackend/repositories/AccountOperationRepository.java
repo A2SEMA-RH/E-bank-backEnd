@@ -12,7 +12,7 @@ public interface AccountOperationRepository extends JpaRepository<AccountOperati
 
 //    opration qui fait la pagination
 
-    Page<AccountOperation> findByBankAccountId(String bankAccountId, Pageable pageable);
+    Page<AccountOperation> findByBankAccountIdOrderByOperationDateDesc(String bankAccountId, Pageable pageable);
 
 
 }
